@@ -12,12 +12,11 @@
 }
 
 .custom-navbar .navbar-brand {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05rem;
   font-weight: 800;
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 3.6vw, 2rem);
   line-height: 1;
   padding: 0;
   color: rgba(255, 255, 255, 0.96);
@@ -31,12 +30,11 @@
 }
 
 .custom-navbar .nav-link {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05rem;
   font-weight: 800;
-  font-size: 1.22rem;
+  font-size: clamp(1.02rem, 2.4vw, 1.22rem);
   line-height: 1;
   color: rgba(255, 255, 255, 0.92) !important;
   padding: 0.7rem 1.15rem;
@@ -85,13 +83,33 @@
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 92px;
 }
 
 html,
 body {
   min-height: 100%;
+}
+
+:root {
+  --font-body: Cambria, Georgia, "Times New Roman", Times, serif;
+  --font-heading: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* fixed full-page background video */
@@ -177,6 +195,17 @@ body {
   margin: auto;
 }
 
+@media (max-width: 767.98px) {
+  .project-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .project-img {
+    height: 180px;
+  }
+}
+
 .project-card:hover {
   transform: scale(1.02);
   box-shadow: 0 0 15px rgba(201, 173, 167, 0.6);
@@ -232,11 +261,32 @@ body {
 }
 
 .carousel-control-prev {
-  left: -50px;
+  left: 0.5rem;
 }
 
 .carousel-control-next {
-  right: -50px;
+  right: 0.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: auto;
+    padding: 0;
+  }
+
+  .carousel-control-prev {
+    left: 0.35rem;
+  }
+
+  .carousel-control-next {
+    right: 0.35rem;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    padding: 8px;
+  }
 }
 
 .carousel-indicators {
@@ -287,6 +337,7 @@ body {
   padding: 20px 30px;
   border-radius: 10px;
   text-align: center;
+  max-width: calc(100vw - 2rem);
 }
 
 .popup-content button {
@@ -306,8 +357,8 @@ body {
 .contact-section {
   background: #4A4E69;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
+  display: block;
+  padding: 2.5rem 0;
 }
 
 .glass-box {
@@ -381,7 +432,41 @@ body {
 body {
   background-color: transparent;
   color: #F2E9E4;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms ease, transform 700ms ease;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal--pop {
+  transform: translateY(14px) scale(0.985);
+}
+
+.scroll-reveal--pop.is-visible {
+  transform: translateY(0) scale(1);
+}
+
+.scroll-reveal--soft {
+  transition-duration: 900ms;
 }
 
 /* hero */
@@ -404,13 +489,12 @@ body {
 }
 
 .hero__title {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.05rem;
   line-height: 1.08;
-  font-size: 2.85rem;
+  font-size: clamp(2rem, 5.2vw, 2.85rem);
   margin: 0;
 }
 
@@ -455,14 +539,13 @@ body {
 }
 
 .hero__role {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
   color: #c985d1;
-  font-size: 2.05rem;
+  font-size: clamp(1.35rem, 4.2vw, 2.05rem);
   margin: 0.7rem 0 1.1rem;
+  letter-spacing: 0.05rem;
 }
 
 .hero-photo-frame {
@@ -472,21 +555,57 @@ body {
   border: 0;
   border-radius: 18px;
   overflow: hidden;
+  perspective: 900px;
+  box-shadow: 0 0 0 rgba(201, 133, 209, 0);
+  transition: box-shadow 220ms ease, transform 220ms ease;
+  will-change: transform;
+}
+
+.hero-photo-frame:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(201, 133, 209, 0.55), 0 0 22px rgba(201, 133, 209, 0.35);
+}
+
+.hero-photo-flip {
+  width: min(270px, 78vw);
+  aspect-ratio: 3 / 4;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 820ms cubic-bezier(0.175, 0.885, 0.32, 1.08);
+}
+
+.hero-photo-frame:hover .hero-photo-flip {
+  transform: rotateY(180deg);
 }
 
 .hero-photo {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 270px;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   object-fit: cover;
   border-radius: 18px;
   border: 0;
   box-shadow: none;
+  backface-visibility: hidden;
 }
 
-.hero-photo:hover {
-  transform: none;
-  box-shadow: none;
+.hero-photo--back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-flip {
+    transition: none;
+  }
+
+  .hero-photo-frame:hover {
+    transform: none;
+  }
+
+  .hero-photo-frame:hover .hero-photo-flip {
+    transform: none;
+  }
 }
 
 .hero__actions {
@@ -497,15 +616,14 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 800;
   padding: 0.28rem 0.75rem;
   background: #fff;
   color: #000;
   text-decoration: none;
   font-size: 1.08rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05rem;
   border-radius: 2px;
 }
 
@@ -521,8 +639,8 @@ body {
 }
 
 .hero-social a {
-  width: 36px;
-  height: 36px;
+  width: clamp(40px, 4.2vw, 48px);
+  height: clamp(40px, 4.2vw, 48px);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -541,8 +659,8 @@ body {
 
 .hero-social img {
   filter: brightness(0);
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 @media (max-width: 767.98px) {
@@ -719,9 +837,9 @@ footer, header {
 
 .card-text {
   font-size: 16px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-body);
   line-height: 1.8;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.05rem;
   color: #F2E9E4;
   padding: 10px;
   background-color: #2A2C45;
@@ -754,12 +872,11 @@ footer, header {
 }
 
 .about-heading {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 2 rem;
+  letter-spacing: 0.05rem;
+  font-size: 2rem;
   line-height: 1;
   margin: 0 0 1.35rem;
   color: rgba(255, 255, 255, 0.96);
@@ -775,14 +892,17 @@ footer, header {
   backdrop-filter: blur(4px);
   padding: 1.45rem 1.6rem;
   border-radius: 3px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .about-card p {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  font-size: 1.09rem;
-  letter-spacing: 0.01em;
-  line-height: 1.65;
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+  line-height: 1.85;
   margin: 0 0 1.35rem;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -867,21 +987,19 @@ footer, header {
 }
 
 .edu-school {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 200;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.05rem;
   font-size: 1.15rem;
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.96);
 }
 
 .edu-meta {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 800;
-  letter-spacing: 0.12em;
-  font-size: 1 rem;
+  letter-spacing: 0.05rem;
+  font-size: 1rem;
   margin-top: 0.45rem;
   color: #5f63ff;
 }
@@ -892,7 +1010,7 @@ footer, header {
   }
 
   .about-card p {
-    font-size: 1.1rem;
+    font-size: 1.22rem;
   }
 
   .edu-school {
@@ -1046,12 +1164,11 @@ footer, header {
 }
 
 .skills-heading {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: clamp(2.2rem, 3vw, 3rem);
+  letter-spacing: 0.05rem;
+  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
   line-height: 1;
   margin: 0;
   color: #c985d1;
@@ -1063,6 +1180,40 @@ footer, header {
   align-items: center;
   gap: clamp(1.1rem, 2.2vw, 2.1rem);
   align-self: center;
+}
+
+.skills-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 0.9rem;
+}
+
+.skills-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.15);
+  padding: 0;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.skills-dot:hover {
+  transform: translateY(-1px) scale(1.05);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 10px rgba(201, 133, 209, 0.35), 0 0 22px rgba(201, 133, 209, 0.2);
+}
+
+.skills-dot--active {
+  background: rgba(0, 0, 0, 0.28);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(201, 133, 209, 0.28), 0 0 12px rgba(201, 133, 209, 0.35);
+}
+
+.skills-dot:focus-visible {
+  outline: 2px solid rgba(232, 166, 218, 0.45);
+  outline-offset: 3px;
 }
 
 .skills-controls svg {
@@ -1092,29 +1243,35 @@ footer, header {
 
 .skills-pill {
   width: clamp(250px, 36vw, 420px);
-  height: clamp(46px, 5.0vw, 64px);
+  min-height: clamp(46px, 5.0vw, 64px);
+  height: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(0, 0, 0, 0.2);
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-heading);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.05rem;
   font-size: clamp(1.35rem, 2.2vw, 2.05rem);
+  line-height: 1.15;
+  padding: 0.35rem 0;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
   color: rgba(255, 255, 255, 0.96);
 }
 
 .skills-cards {
   margin-top: clamp(2.2rem, 4.2vw, 3.4rem);
   display: grid;
-  grid-template-columns: repeat(3, minmax(190px, 1fr));
-  gap: clamp(1.35rem, 2.8vw, 2.4rem) clamp(1.5rem, 3.6vw, 3rem);
+  grid-template-columns: repeat(3, minmax(165px, 1fr));
+  gap: clamp(1.05rem, 2.4vw, 2rem) clamp(1.1rem, 3vw, 2.4rem);
   justify-items: center;
-  max-width: 1220px;
+  max-width: 1120px;
   margin-left: auto;
   margin-right: auto;
   transition: opacity 180ms ease, transform 180ms ease;
@@ -1127,8 +1284,8 @@ footer, header {
 
 .skills-card {
   width: 100%;
-  max-width: 360px;
-  aspect-ratio: 2.12 / 1;
+  max-width: 320px;
+  aspect-ratio: 2.3 / 1;
   border-radius: 3px;
   border: 1px solid rgba(255, 255, 255, 0.32);
   background: rgba(0, 0, 0, 0.12);
@@ -1137,12 +1294,26 @@ footer, header {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  padding: 1rem;
+  padding: 0.85rem;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
+  will-change: transform;
+}
+
+.skills-card:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 10px rgba(201, 133, 209, 0.35), 0 0 22px rgba(201, 133, 209, 0.2);
+}
+
+.skills-card:focus-within {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(201, 133, 209, 0.28);
 }
 
 .skills-card__icon {
-  width: clamp(42px, 4.2vw, 56px);
-  height: clamp(42px, 4.2vw, 56px);
+  width: clamp(36px, 3.8vw, 50px);
+  height: clamp(36px, 3.8vw, 50px);
   object-fit: contain;
 }
 
@@ -1151,10 +1322,9 @@ footer, header {
 }
 
 .skills-card__label {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: var(--font-heading);
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.05rem;
   text-transform: uppercase;
   font-size: clamp(1.2rem, 1.8vw, 1.75rem);
   color: rgba(255, 255, 255, 0.92);
@@ -1162,7 +1332,7 @@ footer, header {
 
 @media (max-width: 1199.98px) {
   .skills-cards {
-    grid-template-columns: repeat(3, minmax(170px, 1fr));
+    grid-template-columns: repeat(3, minmax(155px, 1fr));
   }
 }
 
@@ -1194,13 +1364,30 @@ footer, header {
 
   .skills-card {
     width: 100%;
-    max-width: 420px;
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .skills-heading {
+    align-self: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-card {
+    transition: none;
+  }
+
+  .skills-card:hover {
+    transform: none;
   }
 }
 
 @media (max-width: 575.98px) {
   .skills-heading {
-    font-size: 2.4rem;
+    font-size: 2.05rem;
   }
 
   .skills-cards {
@@ -1210,6 +1397,51 @@ footer, header {
   .skills-arrow {
     width: 62px;
     height: 54px;
+  }
+}
+
+@media (max-width: 420px) {
+  .skills-pill {
+    letter-spacing: 0.05rem;
+    font-size: 1.45rem;
+  }
+
+  .skills-card__label {
+    letter-spacing: 0.05rem;
+  }
+
+  .skills-dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .edu-timeline::before {
+    left: 1.05rem;
+  }
+
+  .edu-dot {
+    left: 1.05rem;
+  }
+
+  .edu-item {
+    padding-left: 2.45rem;
+  }
+
+  .edu-card {
+    padding: 0.85rem 0.95rem;
+    gap: 0.85rem;
+  }
+
+  .edu-logo {
+    width: 54px;
+    height: 54px;
+  }
+
+  .edu-logo img {
+    width: 48px;
+    height: 48px;
   }
 }
 
