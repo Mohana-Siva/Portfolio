@@ -759,7 +759,7 @@ footer, header {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  font-size: 2.35rem;
+  font-size: 2 rem;
   line-height: 1;
   margin: 0 0 1.35rem;
   color: rgba(255, 255, 255, 0.96);
@@ -780,9 +780,8 @@ footer, header {
 .about-card p {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
-  font-weight: 800;
-  font-size: 1.18rem;
-  letter-spacing: 0.05em;
+  font-size: 1.09rem;
+  letter-spacing: 0.01em;
   line-height: 1.65;
   margin: 0 0 1.35rem;
   color: rgba(255, 255, 255, 0.92);
@@ -830,7 +829,7 @@ footer, header {
   height: 12px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.98);
-  border: 2px solid rgba(0, 0, 0, 0.55);
+  
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
   z-index: 2;
 }
@@ -870,9 +869,9 @@ footer, header {
 .edu-school {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  font-size: 1.25rem;
+  font-weight: 200;
+  letter-spacing: 0.01em;
+  font-size: 1.15rem;
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.96);
 }
@@ -882,7 +881,7 @@ footer, header {
     "Courier New", monospace;
   font-weight: 800;
   letter-spacing: 0.12em;
-  font-size: 1.1rem;
+  font-size: 1 rem;
   margin-top: 0.45rem;
   color: #5f63ff;
 }
@@ -1024,6 +1023,194 @@ footer, header {
   height: 24px;
   vertical-align: middle;
   margin-right: 10px;
+}
+
+/* skills (reference layout) */
+#Skills.skills-section {
+  min-height: 100vh;
+  scroll-margin-top: 92px;
+  padding-top: 0.9rem;
+  padding-bottom: 2.25rem;
+  background-color: transparent;
+}
+
+#Skills.skills-section.section-glass::before {
+  background: rgba(0, 0, 0, 0);
+}
+
+.skills-top {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.35rem;
+}
+
+.skills-heading {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: clamp(2.2rem, 3vw, 3rem);
+  line-height: 1;
+  margin: 0;
+  color: #c985d1;
+  align-self: flex-start;
+}
+
+.skills-controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 2.2vw, 2.1rem);
+  align-self: center;
+}
+
+.skills-controls svg {
+  width: 22px;
+  height: 22px;
+}
+
+.skills-arrow {
+  width: clamp(54px, 5.5vw, 72px);
+  height: clamp(44px, 4.5vw, 60px);
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 0.92);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease;
+}
+
+.skills-arrow:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 12px rgba(201, 133, 209, 0.35), 0 0 26px rgba(201, 133, 209, 0.2);
+}
+
+.skills-pill {
+  width: clamp(250px, 36vw, 420px);
+  height: clamp(46px, 5.0vw, 64px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.2);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: clamp(1.35rem, 2.2vw, 2.05rem);
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.skills-cards {
+  margin-top: clamp(2.2rem, 4.2vw, 3.4rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(190px, 1fr));
+  gap: clamp(1.35rem, 2.8vw, 2.4rem) clamp(1.5rem, 3.6vw, 3rem);
+  justify-items: center;
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.skills-cards.skills-cards--switching {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.skills-card {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 2.12 / 1;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.skills-card__icon {
+  width: clamp(42px, 4.2vw, 56px);
+  height: clamp(42px, 4.2vw, 56px);
+  object-fit: contain;
+}
+
+.skills-card__icon--mono {
+  filter: invert(1) brightness(1.05);
+}
+
+.skills-card__label {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: clamp(1.2rem, 1.8vw, 1.75rem);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@media (max-width: 1199.98px) {
+  .skills-cards {
+    grid-template-columns: repeat(3, minmax(170px, 1fr));
+  }
+}
+
+@media (max-width: 991.98px) {
+  #Skills.skills-section {
+    padding-top: 5.5rem;
+  }
+
+  .skills-top {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 1.6rem;
+  }
+
+  .skills-controls {
+    gap: 1.5rem;
+  }
+
+  .skills-pill {
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  .skills-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .skills-card {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .skills-heading {
+    font-size: 2.4rem;
+  }
+
+  .skills-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-arrow {
+    width: 62px;
+    height: 54px;
+  }
 }
 
 
