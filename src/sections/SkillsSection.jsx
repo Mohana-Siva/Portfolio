@@ -1,90 +1,74 @@
 ﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js';
 
+const getColumnsForWidth = (width) => {
+  if (width >= 1200) return 5;
+  if (width >= 992) return 4;
+  if (width >= 768) return 3;
+  if (width >= 576) return 2;
+  return 1;
+};
+
+const chunkWithPadding = (items, size) => {
+  if (size <= 0) return [];
+  const pages = [];
+  for (let i = 0; i < items.length; i += size) {
+    const page = items.slice(i, i + size);
+    while (page.length < size) page.push(null);
+    pages.push(page);
+  }
+  return pages;
+};
+
 export default function SkillsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [index, setIndex] = useState(0);
-  const [isSwitching, setIsSwitching] = useState(false);
 
   const sectionRef = useRef(null);
-  const indexRef = useRef(0);
+  const [columns, setColumns] = useState(() => (typeof window === 'undefined' ? 5 : getColumnsForWidth(window.innerWidth)));
+  const [pageIndex, setPageIndex] = useState(0);
   const pauseRef = useRef(false);
   const resumeTimeoutRef = useRef(null);
 
-  const categories = useMemo(() => {
+  const skills = useMemo(() => {
     const devicon = (name) => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${name}`;
     const simpleIcon = (name) => `https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/${name}.svg`;
     const feather = (name) => `https://cdn.jsdelivr.net/gh/feathericons/feather/icons/${name}.svg`;
 
     return [
-      {
-        title: 'PROGRAMMING',
-        items: [
-          { label: 'C', icon: devicon('c/c-original.svg') },
-          { label: 'C++', icon: devicon('cplusplus/cplusplus-original.svg') },
-          { label: 'Java', icon: devicon('java/java-original.svg') },
-          { label: 'Python', icon: devicon('python/python-original.svg') },
-          { label: 'JavaScript', icon: devicon('javascript/javascript-original.svg') },
-          { label: 'SQL', icon: devicon('mysql/mysql-original.svg') },
-        ],
-      },
-      {
-        title: 'WEB DEVELOPMENT',
-        items: [
-          { label: 'HTML', icon: devicon('html5/html5-original.svg') },
-          { label: 'CSS', icon: devicon('css3/css3-original.svg') },
-          { label: 'React', icon: devicon('react/react-original.svg') },
-          { label: 'Bootstrap', icon: devicon('bootstrap/bootstrap-original.svg') },
-          { label: 'Node.js', icon: devicon('nodejs/nodejs-original.svg') },
-          { label: 'Express.js', icon: simpleIcon('express'), mono: true },
-        ],
-      },
-            {
-        title: 'TOOLS',
-        items: [
-          { label: 'Git', icon: devicon('git/git-original.svg') },
-          { label: 'GitHub', icon: devicon('github/github-original.svg') },
-          { label: 'VS Code', icon: devicon('vscode/vscode-original.svg') },
-          { label: 'Figma', icon: devicon('figma/figma-original.svg') },
-          { label: 'Framer', icon: simpleIcon('framer'), mono: true },
-          { label: 'Postman', icon: devicon('postman/postman-original.svg') },
-        ],
-      },
-      {
-        title: 'DATABASE',
-        items: [
-          { label: 'MySQL', icon: devicon('mysql/mysql-original.svg') },
-          { label: 'MongoDB', icon: devicon('mongodb/mongodb-original.svg') },
-          
-        ],
-      },
-      {
-        title: 'DEPLOYMENT',
-        items: [
-          { label: 'Render', icon: simpleIcon('render'), mono: true },
-          { label: 'Vercel', icon: simpleIcon('vercel'), mono: true },
-        ],
-      },
-      {
-        title: 'AI',
-        items: [
-          { label: 'RAG model', icon: feather('layers'), mono: true },
-          { label: 'API Integration', icon: feather('link'), mono: true },
-          { label: 'ML concepts', icon: feather('trending-up'), mono: true },
-        ],
-      },
-      {
-        title: 'SOFT SKILLS',
-        items: [
-          { label: 'Time Management', icon: feather('clock'), mono: true },
-          { label: 'Team Work', icon: feather('users'), mono: true },
-          { label: 'Logical Thinking', icon: feather('zap'), mono: true },
-        ],
-      },
+      { label: 'C', icon: devicon('c/c-original.svg') },
+      { label: 'C++', icon: devicon('cplusplus/cplusplus-original.svg') },
+      { label: 'Java', icon: devicon('java/java-original.svg') },
+      { label: 'Python', icon: devicon('python/python-original.svg') },
+      { label: 'JavaScript', icon: devicon('javascript/javascript-original.svg') },
+      { label: 'SQL', icon: devicon('mysql/mysql-original.svg') },
+      { label: 'HTML', icon: devicon('html5/html5-original.svg') },
+      { label: 'CSS', icon: devicon('css3/css3-original.svg') },
+      { label: 'React', icon: devicon('react/react-original.svg') },
+      { label: 'Bootstrap', icon: devicon('bootstrap/bootstrap-original.svg') },
+      { label: 'Node.js', icon: devicon('nodejs/nodejs-original.svg') },
+      { label: 'Express.js', icon: simpleIcon('express'), mono: true },
+      { label: 'Git', icon: devicon('git/git-original.svg') },
+      { label: 'GitHub', icon: devicon('github/github-original.svg') },
+      { label: 'VS Code', icon: devicon('vscode/vscode-original.svg') },
+      { label: 'Figma', icon: devicon('figma/figma-original.svg') },
+      { label: 'Framer', icon: simpleIcon('framer'), mono: true },
+      { label: 'Postman', icon: devicon('postman/postman-original.svg') },
+      { label: 'MySQL', icon: devicon('mysql/mysql-original.svg') },
+      { label: 'MongoDB', icon: devicon('mongodb/mongodb-original.svg') },
+      { label: 'Render', icon: simpleIcon('render'), mono: true },
+      { label: 'Vercel', icon: simpleIcon('vercel'), mono: true },
+      { label: 'RAG model', icon: feather('layers'), mono: true },
+      { label: 'API Integration', icon: feather('link'), mono: true },
+      { label: 'ML concepts', icon: feather('trending-up'), mono: true },
+      { label: 'Time Management', icon: feather('clock'), mono: true },
+      { label: 'Team Work', icon: feather('users'), mono: true },
+      { label: 'Logical Thinking', icon: feather('zap'), mono: true },
     ];
   }, []);
 
-  const category = categories[index] ?? categories[0];
+  const itemsPerPage = Math.max(2, columns * 2);
+  const pages = useMemo(() => chunkWithPadding(skills, itemsPerPage), [skills, itemsPerPage]);
+  const pageCount = pages.length;
 
   const pauseAutoScroll = (ms = 2000) => {
     pauseRef.current = true;
@@ -95,38 +79,40 @@ export default function SkillsSection() {
     }, ms);
   };
 
-  const animateTo = (resolved) => {
-    if (prefersReducedMotion) {
-      setIndex(resolved);
-      return;
-    }
-
-    setIsSwitching(true);
-    window.setTimeout(() => {
-      setIndex(resolved);
-      setIsSwitching(false);
-    }, 160);
-  };
-
-  const switchTo = (nextIndex) => {
-    const resolved = (nextIndex + categories.length) % categories.length;
-    animateTo(resolved);
+  const goToPage = (next) => {
+    if (pageCount <= 1) return;
+    const resolved = (next + pageCount) % pageCount;
+    setPageIndex(resolved);
   };
 
   useEffect(() => {
-    indexRef.current = index;
-  }, [index]);
+    if (typeof window === 'undefined') return;
+
+    const handleResize = () => {
+      setColumns(getColumnsForWidth(window.innerWidth));
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion) return;
+    if (pageCount <= 1) return;
 
     const interval = window.setInterval(() => {
       if (pauseRef.current) return;
-      switchTo(indexRef.current + 1);
-    }, 4200);
+      goToPage(pageIndex + 1);
+    }, 3200);
 
     return () => window.clearInterval(interval);
-  }, [prefersReducedMotion, categories.length]);
+  }, [prefersReducedMotion, pageCount, pageIndex]);
+
+  useEffect(() => {
+    if (pageIndex <= pageCount - 1) return;
+    setPageIndex(0);
+  }, [pageIndex, pageCount]);
 
   useEffect(() => {
     return () => {
@@ -158,7 +144,7 @@ export default function SkillsSection() {
 
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [prefersReducedMotion, category.title]);
+  }, [prefersReducedMotion, skills.length]);
 
   return (
     <section
@@ -177,44 +163,59 @@ export default function SkillsSection() {
       <div className="container px-4">
         <div className="skills-top">
           <h2 className="skills-heading">SKILLS</h2>
+        </div>
 
-          <div className="skills-controls" aria-label="Skills category selector">
-            <div className="skills-pill" id="skillsCategory">
-              {category.title}
-            </div>
-          </div>
+        <div className="skills-carousel" aria-roledescription="carousel" aria-label="Skills carousel">
+          <div
+            className="skills-track"
+            style={{
+              transform: `translateX(-${pageIndex * 100}%)`,
+              transition: prefersReducedMotion ? 'none' : undefined,
+            }}
+          >
+            {pages.map((page, pageIdx) => (
+              <div
+                key={`skills-page-${pageIdx}`}
+                className="skills-page"
+                aria-hidden={pageIdx !== pageIndex}
+              >
+                <div className="skills-cards" aria-label={`Skills page ${pageIdx + 1}`}>
+                  {page.map((item, i) => {
+                    if (!item) return <div key={`skills-pad-${pageIdx}-${i}`} className="skills-card skills-card--placeholder" aria-hidden="true" />;
 
-          <div className="skills-dots" aria-label="Skills categories">
-            {categories.map((c, i) => (
-              <button
-                key={c.title}
-                type="button"
-                className={`skills-dot${i === index ? ' skills-dot--active' : ''}`}
-                onClick={() => {
-                  pauseAutoScroll(9000);
-                  switchTo(i);
-                }}
-                aria-label={c.title}
-                aria-pressed={i === index}
-              />
+                    return (
+                      <div key={item.label} className="skills-card scroll-reveal scroll-reveal--pop" style={{ transitionDelay: `${i * 70}ms` }}>
+                        <img
+                          className={`skills-card__icon${item.mono ? ' skills-card__icon--mono' : ''}`}
+                          src={item.icon}
+                          alt={item.label}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span className="skills-card__label">{item.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
-        <div className={`skills-cards${isSwitching ? ' skills-cards--switching' : ''}`} id="skillsCards" aria-label={`${category.title} skills`}>
-          {category.items.map((item, i) => (
-            <div key={item.label} className="skills-card scroll-reveal scroll-reveal--pop" style={{ transitionDelay: `${i * 70}ms` }}>
-              <img
-                className={`skills-card__icon${item.mono ? ' skills-card__icon--mono' : ''}`}
-                src={item.icon}
-                alt={item.label}
-                loading="lazy"
-                decoding="async"
+        {pageCount > 1 ? (
+          <div className="skills-dots" aria-label="Skills pages">
+            {pages.map((_, i) => (
+              <button
+                key={`skills-dot-${i}`}
+                type="button"
+                className={`skills-dot${i === pageIndex ? ' skills-dot--active' : ''}`}
+                onClick={() => goToPage(i)}
+                aria-label={`Go to skills page ${i + 1}`}
+                aria-pressed={i === pageIndex}
               />
-              <span className="skills-card__label">{item.label}</span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : null}
       </div>
     </section>
   );
