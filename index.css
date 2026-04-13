@@ -1260,6 +1260,8 @@ footer, header {
 .skills-page {
   flex: 0 0 100%;
   width: 100%;
+  box-sizing: border-box;
+  padding: clamp(10px, 1.4vw, 18px);
 }
 
 .skills-cards.skills-cards--switching {
@@ -1299,19 +1301,32 @@ footer, header {
   box-shadow: 0 0 12px rgba(201, 133, 209, 0.25), 0 0 26px rgba(201, 133, 209, 0.16), 0 14px 40px rgba(0, 0, 0, 0.32);
 }
 
+.skills-card:hover .skills-card__icon {
+  filter: drop-shadow(0 0 12px rgba(201, 133, 209, 0.42)) drop-shadow(0 0 28px rgba(201, 133, 209, 0.28));
+  transform: translateY(-1px) scale(1.03);
+}
+
+.skills-card:hover .skills-card__icon--mono {
+  filter: invert(1) brightness(1.05) drop-shadow(0 0 12px rgba(201, 133, 209, 0.42)) drop-shadow(0 0 28px rgba(201, 133, 209, 0.28));
+  transform: translateY(-1px) scale(1.03);
+}
+
 .skills-card:focus-within {
   border-color: rgba(255, 255, 255, 0.6);
   box-shadow: 0 0 0 3px rgba(201, 133, 209, 0.28);
 }
 
 .skills-card__icon {
-  width: clamp(34px, 3.0vw, 48px);
-  height: clamp(34px, 3.0vw, 48px);
+  width: clamp(38px, 3.3vw, 54px);
+  height: clamp(38px, 3.3vw, 54px);
   object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(201, 133, 209, 0.34)) drop-shadow(0 0 20px rgba(201, 133, 209, 0.22));
+  transition: filter 220ms ease, transform 220ms ease;
+  will-change: filter, transform;
 }
 
 .skills-card__icon--mono {
-  filter: invert(1) brightness(1.05);
+  filter: invert(1) brightness(1.05) drop-shadow(0 0 10px rgba(201, 133, 209, 0.34)) drop-shadow(0 0 20px rgba(201, 133, 209, 0.22));
 }
 
 .skills-card__label {
@@ -1391,11 +1406,6 @@ footer, header {
 
 }
 
-@media (max-width: 380px) {
-  .skills-cards {
-    grid-template-columns: 1fr;
-  }
-}
 
 @media (max-width: 420px) {
   .skills-pill {

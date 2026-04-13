@@ -1,12 +1,10 @@
 ﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js';
 
-const getColumnsForWidth = (width) => {
-  if (width >= 1200) return 5;
-  if (width >= 992) return 4;
-  if (width >= 768) return 3;
-  if (width >= 576) return 2;
-  return 1;
+const getLayoutForWidth = (width) => {
+  const columns = width >= 1200 ? 5 : width >= 992 ? 4 : width >= 768 ? 3 : 2;
+  const rows = width < 576 ? 3 : 2;
+  return { columns, rows };
 };
 
 const chunkWithPadding = (items, size) => {
@@ -24,14 +22,16 @@ export default function SkillsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const sectionRef = useRef(null);
-  const [columns, setColumns] = useState(() => (typeof window === 'undefined' ? 5 : getColumnsForWidth(window.innerWidth)));
+  const [layout, setLayout] = useState(() =>
+    typeof window === 'undefined' ? { columns: 5, rows: 2 } : getLayoutForWidth(window.innerWidth)
+  );
   const [pageIndex, setPageIndex] = useState(0);
   const pauseRef = useRef(false);
   const resumeTimeoutRef = useRef(null);
 
   const skills = useMemo(() => {
     const devicon = (name) => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${name}`;
-    const simpleIcon = (name) => `https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/${name}.svg`;
+    const simpleIcon = (name) => `https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/${name}.svg`;
     const feather = (name) => `https://cdn.jsdelivr.net/gh/feathericons/feather/icons/${name}.svg`;
 
     return [
@@ -48,7 +48,7 @@ export default function SkillsSection() {
       { label: 'Node.js', icon: devicon('nodejs/nodejs-original.svg') },
       { label: 'Express.js', icon: simpleIcon('express'), mono: true },
       { label: 'Git', icon: devicon('git/git-original.svg') },
-      { label: 'GitHub', icon: devicon('github/github-original.svg') },
+      { label: 'GitHub', icon: simpleIcon('github'), mono: true },
       { label: 'VS Code', icon: devicon('vscode/vscode-original.svg') },
       { label: 'Figma', icon: devicon('figma/figma-original.svg') },
       { label: 'Framer', icon: simpleIcon('framer'), mono: true },
@@ -60,13 +60,10 @@ export default function SkillsSection() {
       { label: 'RAG model', icon: feather('layers'), mono: true },
       { label: 'API Integration', icon: feather('link'), mono: true },
       { label: 'ML concepts', icon: feather('trending-up'), mono: true },
-      { label: 'Time Management', icon: feather('clock'), mono: true },
-      { label: 'Team Work', icon: feather('users'), mono: true },
-      { label: 'Logical Thinking', icon: feather('zap'), mono: true },
     ];
   }, []);
 
-  const itemsPerPage = Math.max(2, columns * 2);
+  const itemsPerPage = Math.max(2, layout.columns * layout.rows);
   const pages = useMemo(() => chunkWithPadding(skills, itemsPerPage), [skills, itemsPerPage]);
   const pageCount = pages.length;
 
@@ -89,7 +86,7 @@ export default function SkillsSection() {
     if (typeof window === 'undefined') return;
 
     const handleResize = () => {
-      setColumns(getColumnsForWidth(window.innerWidth));
+      setLayout(getLayoutForWidth(window.innerWidth));
     };
 
     handleResize();
@@ -184,7 +181,7 @@ export default function SkillsSection() {
                     if (!item) return <div key={`skills-pad-${pageIdx}-${i}`} className="skills-card skills-card--placeholder" aria-hidden="true" />;
 
                     return (
-                      <div key={item.label} className="skills-card scroll-reveal scroll-reveal--pop" style={{ transitionDelay: `${i * 70}ms` }}>
+                      <div key={item.label} className="skills-card">
                         <img
                           className={`skills-card__icon${item.mono ? ' skills-card__icon--mono' : ''}`}
                           src={item.icon}
