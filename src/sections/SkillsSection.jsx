@@ -86,7 +86,7 @@ export default function SkillsSection() {
 
   const category = categories[index] ?? categories[0];
 
-  const pauseAutoScroll = (ms = 6000) => {
+  const pauseAutoScroll = (ms = 2000) => {
     pauseRef.current = true;
     if (resumeTimeoutRef.current) window.clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = window.setTimeout(() => {
