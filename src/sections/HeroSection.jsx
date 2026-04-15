@@ -64,8 +64,8 @@ export default function HeroSection() {
           <div className="col-lg-4 col-md-5 d-flex justify-content-center text-center img-animate">
             <div className="hero-photo-frame">
               <div className="hero-photo-flip" aria-hidden="true">
-                <img src="/imgs/me.jpg" className="hero-photo hero-photo--front" alt="" />
-                <img src="/imgs/me.jpg" className="hero-photo hero-photo--back" alt="" />
+                <img src="/imgs/me.png" className="hero-photo hero-photo--front" alt="" />
+                <img src="/imgs/me.png" className="hero-photo hero-photo--back" alt="" />
               </div>
               <span className="visually-hidden">Mohana portrait</span>
             </div>
