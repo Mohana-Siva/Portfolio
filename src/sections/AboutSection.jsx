@@ -1,4 +1,4 @@
-﻿export default function AboutSection() {
+export default function AboutSection() {
   return (
     <section id="about" className="about-section section-glass scroll-reveal scroll-reveal--soft">
       <div className="container px-4">
@@ -24,14 +24,28 @@
                   <div className="lang-badge" role="listitem">
                     <img className="lang-badge__flag" src="/imgs/ame.png" alt="United States flag" />
                     <span className="lang-badge__label">English</span>
+                    <div className="lang-tooltip">
+                      <span>Read</span>
+                      <span>Write</span>
+                      <span>Speak</span>
+                    </div>
                   </div>
                   <div className="lang-badge" role="listitem">
                     <img className="lang-badge__flag" src="/imgs/ind.png" alt="India flag" />
                     <span className="lang-badge__label">Hindi</span>
+                    <div className="lang-tooltip">
+                      <span>Read</span>
+                      <span>Write</span>
+                      <span>Speak</span>
+                    </div>
                   </div>
                   <div className="lang-badge" role="listitem">
                     <img className="lang-badge__flag" src="/imgs/jap.png" alt="Japan flag" />
                     <span className="lang-badge__label">Japanese</span>
+                    <div className="lang-tooltip">
+                      <span>Read</span>
+                      <span>Write</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -39,7 +53,7 @@
           </div>
 
           <div className="col-lg-5">
-            <div className="edu-timeline">
+            <div className="edu-timeline scroll-reveal">
 
 
               <div className="edu-item">

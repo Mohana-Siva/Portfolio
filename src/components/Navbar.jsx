@@ -107,9 +107,7 @@ export default function Navbar({ sections }) {
   return (
     <nav ref={navbarRef} className="navbar navbar-expand-lg custom-navbar navbar-dark">
       <div className="container px-4">
-        <a className="navbar-brand" href="#home" onClick={(e) => handleNavClick(e, 'home')}>
-          PORTFOLIO
-        </a>
+      
 
         <button
           className="navbar-toggler"
@@ -123,7 +121,7 @@ export default function Navbar({ sections }) {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div ref={collapseRef} className="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo02">
+        <div ref={collapseRef} className="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo02">
           <ul className="navbar-nav mb-2 mb-lg-0">
             {sections.map((s) => (
               <li key={s.id} className="nav-item">
