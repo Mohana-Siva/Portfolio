@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function Navbar({ sections }) {
   const navbarRef = useRef(null);
@@ -136,6 +136,15 @@ export default function Navbar({ sections }) {
             ))}
           </ul>
         </div>
+
+        <a
+          href="https://drive.google.com/file/d/10kICZ3Jad20Zsm2Mhbh3jl7zH483qakx/view?usp=drivesdk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="nav-resume-btn"
+        >
+          Resume
+        </a>
       </div>
     </nav>
   );

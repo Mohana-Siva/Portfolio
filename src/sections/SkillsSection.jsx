@@ -137,7 +137,7 @@ export default function SkillsSection() {
   return (
     <section ref={sectionRef} className="skills-section section-glass scroll-reveal scroll-reveal--soft" id="Skills">
       <div className="container px-4">
-        <div className="skills-top">
+        <div >
           <h2 className="skills-heading">SKILLS</h2>
         </div>
 
