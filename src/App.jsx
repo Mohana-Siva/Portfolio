@@ -8,6 +8,7 @@ import SkillsSection from './sections/SkillsSection.jsx';
 import CertsSection from './sections/CertsSection.jsx';
 import ConnectFab from './components/ConnectFab.jsx';
 import ContactModal from './components/ContactModal.jsx';
+import Footer from './components/Footer.jsx';
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -41,7 +42,7 @@ export default function App() {
     { id: 'about', label: 'ABOUT' },
     { id: 'Skills', label: 'SKILLS' },
     { id: 'project', label: 'PROJECTS' },
-    { id: 'certs', label: 'CERTS' },
+    { id: 'certs', label: 'CERTIFICATIONS' },
   ];
 
   return (
@@ -49,10 +50,10 @@ export default function App() {
       <SiteBackground />
       <Navbar sections={sections} />
       <ConnectFab onOpen={() => setIsContactOpen(true)} />
-      
-      <ContactModal 
-        isOpen={isContactOpen} 
-        onClose={() => setIsContactOpen(false)} 
+
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
       />
 
       <main>
@@ -62,6 +63,8 @@ export default function App() {
         <ProjectsSection />
         <CertsSection />
       </main>
+
+      <Footer />
     </>
   );
 }

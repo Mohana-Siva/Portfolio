@@ -2030,20 +2030,18 @@ header {
   right: 10px;
   width: 36px;
   height: 36px;
-  background: #c985d1;
   border: none;
   border-radius: 50%;
-  color: #fff;
+  color: #0f0e0e;
   font-size: 24px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease;
 }
 
 .cert-modal-close:hover {
-  transform: scale(1.1) rotate(90deg);
+  transform: scale(1.1);
 }
 
 .cert-modal-img {
@@ -2183,4 +2181,86 @@ header {
   border-radius: 50%;
   background: rgba(151, 217, 224, 0.1);
   filter: drop-shadow(0 0 8px rgba(151, 217, 224, 0.3));
+}
+
+/* Footer Styling */
+.footer-section {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  margin-top: 4rem;
+}
+
+.footer-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05rem;
+}
+
+.footer-info {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.2rem;
+}
+
+.footer-tech {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-tech svg {
+  animation: rotateReact 10s linear infinite;
+}
+
+@keyframes rotateReact {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .footer-socials {
+    justify-content: flex-end;
+  }
+}
+
+.footer-social-link {
+  display: inline-flex;
+  transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+  opacity: 0.7;
+}
+
+.footer-social-link:hover {
+  transform: translateY(-3px);
+  opacity: 1;
+  filter: drop-shadow(0 0 5px rgba(201, 133, 209, 0.5));
+}
+
+.footer-social-link img,
+.footer-social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-divider {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer-copyright {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
 }

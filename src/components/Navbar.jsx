@@ -107,7 +107,8 @@ export default function Navbar({ sections }) {
   return (
     <nav ref={navbarRef} className="navbar navbar-expand-lg custom-navbar navbar-dark">
       <div className="container px-4">
-      
+        {/* Left spacer for desktop balancing */}
+        <div className="d-none d-lg-block" style={{ flex: 1 }}></div>
 
         <button
           className="navbar-toggler order-1"
@@ -121,7 +122,7 @@ export default function Navbar({ sections }) {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div ref={collapseRef} className="collapse navbar-collapse justify-content-center order-3 order-lg-1" id="navbarTogglerDemo02">
+        <div ref={collapseRef} className="collapse navbar-collapse justify-content-center order-3 order-lg-1" id="navbarTogglerDemo02" style={{ flex: '0 1 auto' }}>
           <ul className="navbar-nav mb-2 mb-lg-0">
             {sections.map((s) => (
               <li key={s.id} className="nav-item">
@@ -137,14 +138,16 @@ export default function Navbar({ sections }) {
           </ul>
         </div>
 
-        <a
-          href="https://drive.google.com/file/d/10kICZ3Jad20Zsm2Mhbh3jl7zH483qakx/view?usp=drivesdk"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="nav-resume-btn order-lg-2"
-        >
-          Resume
-        </a>
+        <div className="d-flex justify-content-end order-2" style={{ flex: 1 }}>
+          <a
+            href="https://drive.google.com/file/d/10kICZ3Jad20Zsm2Mhbh3jl7zH483qakx/view?usp=drivesdk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-resume-btn"
+          >
+            Resume
+          </a>
+        </div>
       </div>
     </nav>
   );
