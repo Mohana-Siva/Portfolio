@@ -40,7 +40,7 @@ export default function CertsSection() {
 
   return (
     <section id="certs" className="certs-section section-glass scroll-reveal scroll-reveal--soft">
-      <div className="container px-4 py-5 mt-5">
+      <div className="container px-4 pb-5 pt-0">
         <h2 className="about-heading reveal">
           <span className="about-heading__accent">CERTIFICATIONS</span>
         </h2>

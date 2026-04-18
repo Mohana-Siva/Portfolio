@@ -19,7 +19,7 @@ export default function AboutSection() {
               </p>
 
               <div className="about-langs">
-                <div className="about-langs__title">LANGUAGES</div>
+                <div className="about-langs__title">Languages</div>
                 <div className="about-langs__badges" role="list">
                   <div className="lang-badge" role="listitem">
                     <img className="lang-badge__flag" src="/imgs/ame.png" alt="United States flag" />
@@ -32,7 +32,7 @@ export default function AboutSection() {
                   </div>
                   <div className="lang-badge" role="listitem">
                     <img className="lang-badge__flag" src="/imgs/ind.png" alt="India flag" />
-                    <span className="lang-badge__label">Hindi</span>
+                    <span className="lang-badge__label">Tamil</span>
                     <div className="lang-tooltip">
                       <span>Read</span>
                       <span>Write</span>
@@ -87,7 +87,7 @@ export default function AboutSection() {
                 </div>
               </div>
 
-                            <div className="edu-item">
+              <div className="edu-item">
                 <span className="edu-dot" aria-hidden="true"></span>
                 <div className="edu-card scroll-reveal scroll-reveal--pop" style={{ transitionDelay: '0ms' }}>
                   <div className="edu-logo" aria-hidden="true">

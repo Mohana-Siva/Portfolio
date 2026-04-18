@@ -110,7 +110,7 @@ export default function Navbar({ sections }) {
       
 
         <button
-          className="navbar-toggler"
+          className="navbar-toggler order-1"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarTogglerDemo02"
@@ -121,7 +121,7 @@ export default function Navbar({ sections }) {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div ref={collapseRef} className="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo02">
+        <div ref={collapseRef} className="collapse navbar-collapse justify-content-center order-3 order-lg-1" id="navbarTogglerDemo02">
           <ul className="navbar-nav mb-2 mb-lg-0">
             {sections.map((s) => (
               <li key={s.id} className="nav-item">
@@ -141,7 +141,7 @@ export default function Navbar({ sections }) {
           href="https://drive.google.com/file/d/10kICZ3Jad20Zsm2Mhbh3jl7zH483qakx/view?usp=drivesdk"
           target="_blank"
           rel="noopener noreferrer"
-          className="nav-resume-btn"
+          className="nav-resume-btn order-lg-2"
         >
           Resume
         </a>
