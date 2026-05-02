@@ -18,7 +18,10 @@ export default function Navbar({ sections }) {
     const navbar = navbarRef.current;
     if (!navbar) return;
 
-    const getNavbarOffset = () => Math.ceil(navbar.getBoundingClientRect().height || 0) + 10;
+    const getNavbarOffset = () => {
+      const GAP = 12;
+      return Math.ceil(navbar.getBoundingClientRect().height || 0) + GAP;
+    };
 
     const setNavbarState = () => {
       navbar.classList.toggle('navbar-scrolled', window.scrollY > 10);
@@ -87,21 +90,38 @@ export default function Navbar({ sections }) {
 
     event.preventDefault();
 
-    const navbar = navbarRef.current;
-    const offset = navbar ? Math.ceil(navbar.getBoundingClientRect().height || 0) + 10 : 0;
-    const y = window.scrollY + target.getBoundingClientRect().top - offset;
+    const scrollToSection = () => {
+      const navbar = navbarRef.current;
+      const GAP = 12;
+      const offset = navbar ? Math.ceil(navbar.getBoundingClientRect().height || 0) + GAP : GAP;
+      const y = window.scrollY + target.getBoundingClientRect().top - offset;
 
-    programmatic.current.inProgress = true;
-    programmatic.current.activeId = id;
-    programmatic.current.targetY = Math.max(0, Math.round(y));
+      programmatic.current.inProgress = true;
+      programmatic.current.activeId = id;
+      programmatic.current.targetY = Math.max(0, Math.round(y));
 
-    const distance = Math.abs(window.scrollY - programmatic.current.targetY);
-    programmatic.current.until = Date.now() + Math.min(1600, 350 + distance * 0.6);
+      const distance = Math.abs(window.scrollY - programmatic.current.targetY);
+      programmatic.current.until = Date.now() + Math.min(1600, 350 + distance * 0.6);
 
-    setActiveSection(id);
-    window.scrollTo({ top: programmatic.current.targetY, behavior: 'smooth' });
+      setActiveSection(id);
+      window.scrollTo({ top: programmatic.current.targetY, behavior: 'smooth' });
+    };
+
+    const collapseEl = collapseRef.current;
+    const isMenuExpanded = Boolean(collapseEl?.classList.contains('show'));
+
+    if (isMenuExpanded && window.bootstrap?.Collapse) {
+      const onHidden = () => {
+        collapseEl.removeEventListener('hidden.bs.collapse', onHidden);
+        scrollToSection();
+      };
+      collapseEl.addEventListener('hidden.bs.collapse', onHidden, { once: true });
+      hideMobileMenuIfOpen();
+      return;
+    }
 
     hideMobileMenuIfOpen();
+    scrollToSection();
   };
 
   return (

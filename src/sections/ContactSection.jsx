@@ -17,9 +17,9 @@ export default function ContactSection() {
 
   return (
     <>
-      <section id="contact" className="contact-section section-glass scroll-reveal scroll-reveal--soft">
-        <div className="container py-5">
-          <h2 className="text-center mb-5 text-light scroll-reveal scroll-reveal--pop">Contact</h2>
+      <section id="contact" className="contact-section app-section section-glass scroll-reveal scroll-reveal--soft">
+        <div className="container px-4">
+          <h2 className="section-heading scroll-reveal scroll-reveal--pop">Contact</h2>
           <div className="row justify-content-center align-items-center g-5">
             <div className="col-lg-7">
               <div className="glass-box p-4 scroll-reveal scroll-reveal--pop" style={{ transitionDelay: '0ms' }}>

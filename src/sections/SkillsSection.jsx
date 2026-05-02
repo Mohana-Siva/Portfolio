@@ -4,10 +4,6 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js';
 export default function SkillsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const sectionRef = useRef(null);
-  const revealTimeoutRef = useRef(null);
-  const inViewRef = useRef(false);
-  const hasRevealedRef = useRef(false);
-  const isRevealingRef = useRef(false);
 
   const skills = useMemo(() => {
     const devicon = (name) => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${name}`;
@@ -43,109 +39,43 @@ export default function SkillsSection() {
     ];
   }, []);
 
-  const [visibleCount, setVisibleCount] = useState(() => (prefersReducedMotion ? skills.length : 0));
-  const visibleCountRef = useRef(visibleCount);
-
-  useEffect(() => {
-    visibleCountRef.current = visibleCount;
-  }, [visibleCount]);
+  const [hasRevealed, setHasRevealed] = useState(prefersReducedMotion);
 
   useEffect(() => {
     const root = sectionRef.current;
     if (!root) return;
 
-    const stopReveal = () => {
-      if (revealTimeoutRef.current) {
-        window.clearTimeout(revealTimeoutRef.current);
-        revealTimeoutRef.current = null;
-      }
-      isRevealingRef.current = false;
-    };
-
-    const startReveal = (startFrom = 0) => {
-      stopReveal();
-      isRevealingRef.current = true;
-      const initial = Math.max(0, Math.min(skills.length, startFrom));
-      if (initial === skills.length) {
-        hasRevealedRef.current = true;
-        isRevealingRef.current = false;
-        setVisibleCount(skills.length);
-        return;
-      }
-
-      setVisibleCount(initial);
-
-      let i = initial;
-      const step = () => {
-        i += 1;
-        setVisibleCount(i);
-        if (i < skills.length) {
-          revealTimeoutRef.current = window.setTimeout(step, 115);
-        } else {
-          revealTimeoutRef.current = null;
-          hasRevealedRef.current = true;
-          isRevealingRef.current = false;
-        }
-      };
-
-      revealTimeoutRef.current = window.setTimeout(step, 160);
-    };
-
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      inViewRef.current = true;
-      hasRevealedRef.current = true;
-      stopReveal();
-      setVisibleCount(skills.length);
-      return () => stopReveal();
+      setHasRevealed(true);
+      return;
     }
 
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (inViewRef.current) return;
-            inViewRef.current = true;
-
-            if (hasRevealedRef.current) {
-              stopReveal();
-              setVisibleCount(skills.length);
-              io.disconnect();
-              return;
-            }
-
-            if (!isRevealingRef.current) startReveal(visibleCountRef.current);
-            return;
-          }
-
-          if (!inViewRef.current) return;
-          inViewRef.current = false;
-
-          // Only reveal once: if user leaves mid-reveal, pause and resume later (no reset).
-          if (!hasRevealedRef.current) stopReveal();
+          if (!entry.isIntersecting) return;
+          setHasRevealed(true);
+          io.disconnect();
         });
       },
       { threshold: 0.2, rootMargin: '0px 0px -12% 0px' }
     );
 
     io.observe(root);
-    return () => {
-      io.disconnect();
-      stopReveal();
-    };
-  }, [prefersReducedMotion, skills.length]);
+    return () => io.disconnect();
+  }, [prefersReducedMotion]);
 
   return (
-    <section ref={sectionRef} className="skills-section section-glass scroll-reveal scroll-reveal--soft" id="Skills">
+    <section ref={sectionRef} className="skills-section app-section section-glass scroll-reveal scroll-reveal--soft" id="Skills">
       <div className="container px-4">
-        <div >
-          <h2 className="skills-heading">SKILLS</h2>
-        </div>
+        <h2 className="section-heading">Skills</h2>
 
         <div className="skills-grid" aria-label="Skills">
           {skills.map((item, index) => (
             <div
               key={item.label}
-              className={`skills-card skills-card--reveal${index < visibleCount ? ' skills-card--visible' : ''}`}
+              className={`skills-card skills-card--reveal${hasRevealed ? ' skills-card--visible' : ''}`}
+              style={{ transitionDelay: hasRevealed ? `${index * 90}ms` : '0ms' }}
             >
               <img
                 className={`skills-card__icon${item.mono ? ' skills-card__icon--mono' : ''}`}

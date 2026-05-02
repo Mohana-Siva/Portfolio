@@ -1,10 +1,8 @@
 export default function AboutSection() {
   return (
-    <section id="about" className="about-section section-glass scroll-reveal scroll-reveal--soft">
+    <section id="about" className="about-section app-section section-glass scroll-reveal scroll-reveal--soft">
       <div className="container px-4">
-        <h2 className="about-heading">
-          <span className="about-heading__accent">ABOUT ME </span>
-        </h2>
+        <h2 className="section-heading">About Me</h2>
         <div className="row g-4 align-items-stretch">
           <div className="col-lg-7">
             <div className="about-card scroll-reveal scroll-reveal--pop">

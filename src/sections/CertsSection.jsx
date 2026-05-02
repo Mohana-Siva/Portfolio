@@ -39,11 +39,9 @@ export default function CertsSection() {
   const [modalImg, setModalImg] = useState(null);
 
   return (
-    <section id="certs" className="certs-section section-glass scroll-reveal scroll-reveal--soft">
-      <div className="container px-4 pb-5 pt-0">
-        <h2 className="about-heading reveal">
-          <span className="about-heading__accent">CERTIFICATIONS</span>
-        </h2>
+    <section id="certs" className="certs-section app-section section-glass scroll-reveal scroll-reveal--soft">
+      <div className="container px-4">
+        <h2 className="section-heading reveal">Certifications</h2>
         
         <div className="row g-4 justify-content-center">
           {certifications.map((cert, index) => (
