@@ -337,7 +337,6 @@ export default function SiteBackground() {
     };
 
     const handleTouchMove = (e) => {
-      e.preventDefault();
       handleMouseMove(e);
     };
 
@@ -410,7 +409,7 @@ export default function SiteBackground() {
     resize();
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchstart', handleMouseMove);
 
     animate();
