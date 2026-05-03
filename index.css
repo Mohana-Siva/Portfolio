@@ -325,10 +325,6 @@ body {
     width: 100%;
     max-width: 100%;
   }
-
-  .project-img {
-    height: 180px;
-  }
 }
 
 .project-card:hover {
@@ -363,7 +359,8 @@ body {
 
 .project-body p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.86rem;
+  font-weight: 400;
   line-height: 1.45;
   opacity: 0.9;
 }
@@ -1822,8 +1819,8 @@ header {
 
 @media (max-width: 575.98px) {
   .app-section {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 2.8rem;
+    padding-bottom: 2.8rem;
   }
 
   .edu-timeline::before {

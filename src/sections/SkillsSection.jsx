@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js';
 
 export default function SkillsSection() {
@@ -11,7 +11,7 @@ export default function SkillsSection() {
     const feather = (name) => `https://cdn.jsdelivr.net/gh/feathericons/feather/icons/${name}.svg`;
 
     return [
-      { label: 'C', icon: devicon('c/c-original.svg') },
+      { label: 'C', icon: 'https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg' },
       { label: 'C++', icon: devicon('cplusplus/cplusplus-original.svg') },
       { label: 'Java', icon: devicon('java/java-original.svg') },
       { label: 'Python', icon: devicon('python/python-original.svg') },
@@ -34,8 +34,7 @@ export default function SkillsSection() {
       { label: 'Render', icon: simpleIcon('render'), mono: true },
       { label: 'Vercel', icon: simpleIcon('vercel'), mono: true },
       { label: 'RAG model', icon: feather('layers'), mono: true },
-      { label: 'API Integration', icon: feather('link'), mono: true },
-      { label: 'ML concepts', icon: feather('trending-up'), mono: true },
+      { label: 'API', icon: feather('link'), mono: true },
     ];
   }, []);
 

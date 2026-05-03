@@ -1,56 +1,62 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 
 export default function ProjectsSection() {
   const desktopCarouselRef = useRef(null);
   const mobileCarouselRef = useRef(null);
   const projects = [
     {
-      title: 'Electric Bill Generator',
-      image: '/imgs/ele.jpg',
-      alt: 'Electric Bill Generator',
-      description: 'Web-based system with Spring Boot to manage electricity usage and billing.',
-      href: 'https://github.com/Mohana-Siva/Electric-Bill-Generator-SprinBoot-Mongo-DB-',
-      tech: ['Spring Boot', 'MongoDB', 'Java'],
+      title: 'Career Guidance Platform',
+      image: '/imgs/career.jpg',
+      alt: 'Career Guidance Platform',
+      description:
+        'Full-stack career guidance web app for students in India with an AI chatbot, Nala. For college cutoff and choice-list queries, it fetches and processes MongoDB data directly. For broader career questions, it uses a RAG pipeline with Nomic embeddings, Pinecone retrieval, and LLaMA 3.1 via Groq for reliable responses.',
+      href: ' https://career-counseling-app.netlify.app',
+      tech: ['MERN', 'Pinecone', 'Groq AI'],
+    },
+    {
+      title: 'E-commerce Platform',
+      image: '/imgs/collage.jpg',
+      alt: 'Plastic Recycling E-commerce Platform',
+      description:
+        'Developed an e-commerce platform for a plastic recycling company with role-based access for admin, customer, and employee. Admin manages products, orders, and analytics. Customers browse, purchase, and receive updates. Employees use an AR-based learning system for machine guidance, improving training efficiency and operational productivity.',
+      href: 'https://sri-sai-traders.vercel.app/',
+      tech: ['MERN', 'AR', 'Razor Pay'],
     },
     {
       title: 'Railway Reservation System',
       image: '/imgs/rail.jpg',
       alt: 'Railway Reservation System',
-      description: 'Book tickets and generate QR-coded PDF receipts after train bookings.',
+      description:
+        'Developed a full stack Railway Ticket Booking System that allows users to search trains, check availability, book tickets, and generate PDF receipts with QR codes. Implemented secure login, dynamic seat allocation, and database integration using Flask and MySQL, with a responsive frontend built using HTML, CSS, and JavaScript.',
       href: 'https://github.com/Mohana-Siva/Railway-Reservation-System',
       tech: ['React', 'Node.js', 'QR/PDF'],
     },
     {
-      title: 'ZIYA Ayurvedic Products',
-      image: '/imgs/ayur.jpg',
-      alt: 'ZIYA Ayurvedic Products',
-      description: 'Platform to purchase Ayurvedic products with location-based services.',
-      href: 'https://github.com/yourusername/weather-app',
-      tech: ['React', 'Location API', 'Ecommerce'],
+      title: 'Electric Bill Generator',
+      image: '/imgs/ele.jpg',
+      alt: 'Electric Bill Generator',
+      description:
+        'Developed an Electricity Bill Generator using Spring Boot that calculates bills based on unit consumption and tariff rates. Implemented user input handling, automated bill computation, and data storage with database integration. Designed a simple interface to generate and display accurate bills efficiently for users and administrators.',
+      href: 'https://github.com/Mohana-Siva/Electric-Bill-Generator-SprinBoot-Mongo-DB-',
+      tech: ['Spring Boot', 'MongoDB', 'Java'],
     },
     {
-      title: 'Car Parking Website',
-      image: '/imgs/par.jpg',
-      alt: 'Car Parking Website',
-      description: 'Online parking space reservation with slot viewing in React.',
-      href: 'https://github.com/yourusername/blog-platform',
-      tech: ['React', 'Booking Flow', 'UI'],
+      title: 'Duolingo-Inspired UI/UX Redesign',
+      image: '/imgs/duolingo.png',
+      alt: 'Duolingo-Inspired UI/UX Redesign',
+      description:
+        'Designed a UI/UX mockup inspired by Duolingo with enhanced features to improve user engagement and learning efficiency. Focused on personalized learning paths, improved progress tracking, and richer gamification. Created wireframes and prototypes in Figma, emphasizing intuitive navigation, accessibility, and a user-centered experience.',
+      href: 'https://www.figma.com/design/x5J7xyB4R6rlytjB6iIDw3/Untitled?t=JhhMQ0TnjRIMhjVv-0',
+      tech: ['Redesign', 'UI', 'UX'],
     },
     {
       title: 'Gardenize',
       image: '/imgs/gar.jpg',
       alt: 'Gardenize',
-      description: 'Smart gardening assistant to track plant care and growth.',
-      href: 'https://github.com/yourusername/expense-tracker',
-      tech: ['Task Tracking', 'Reminders', 'Dashboard'],
-    },
-    {
-      title: 'Organ Donation Website',
-      image: '/imgs/org.webp',
-      alt: 'Organ Donation Website',
-      description: 'Connects donors, recipients, and institutions for smoother process.',
-      href: 'https://github.com/yourusername/quiz-app',
-      tech: ['Web App', 'Workflow', 'Community'],
+      description:
+        'Designed a UI/UX prototype for Gardenize, a gardening app that helps users plan, organize, and design their gardens. The app enables users to track plants, purchase gardening utilities, and engage with a community for tips, ideas, and inspiration, enhancing both gardening efficiency and user experience.',
+      href: 'https://www.figma.com/design/BbxunhwjcrpmwelEjXg522/Gardenize---High-Fidelity?node-id=0-1&p=f&t=e9jYMfIBPelxONGm-0',
+      tech: ['Figma', 'UI/UX', 'Prototype'],
     },
   ];
 
@@ -66,7 +72,7 @@ export default function ProjectsSection() {
       if (window.bootstrap?.Carousel) {
         const instance = window.bootstrap.Carousel.getOrCreateInstance(root, {
           interval: 4200,
-          pause: false,
+          pause: 'hover',
           wrap: true,
           touch: true,
         });
@@ -89,12 +95,30 @@ export default function ProjectsSection() {
         indicators[activeIndex]?.classList.add('active');
       };
 
-      const intervalId = window.setInterval(() => {
-        const next = (activeIndex + 1) % items.length;
-        setActive(next);
-      }, 4200);
+      let intervalId = null;
+      const startAutoplay = () => {
+        if (intervalId !== null) return;
+        intervalId = window.setInterval(() => {
+          const next = (activeIndex + 1) % items.length;
+          setActive(next);
+        }, 4200);
+      };
 
-      return () => window.clearInterval(intervalId);
+      const stopAutoplay = () => {
+        if (intervalId === null) return;
+        window.clearInterval(intervalId);
+        intervalId = null;
+      };
+
+      root.addEventListener('mouseenter', stopAutoplay);
+      root.addEventListener('mouseleave', startAutoplay);
+      startAutoplay();
+
+      return () => {
+        stopAutoplay();
+        root.removeEventListener('mouseenter', stopAutoplay);
+        root.removeEventListener('mouseleave', startAutoplay);
+      };
     };
 
     const cleanDesktop = setupCarousel(desktopCarouselRef.current);
@@ -116,7 +140,7 @@ export default function ProjectsSection() {
           className="carousel slide d-none d-md-block"
           data-bs-ride="carousel"
           data-bs-interval="4200"
-          data-bs-pause="false"
+          data-bs-pause="hover"
           data-bs-wrap="true"
           data-bs-touch="true"
         >
@@ -175,7 +199,7 @@ export default function ProjectsSection() {
           className="carousel slide d-block d-md-none"
           data-bs-ride="carousel"
           data-bs-interval="4200"
-          data-bs-pause="false"
+          data-bs-pause="hover"
           data-bs-wrap="true"
           data-bs-touch="true"
         >

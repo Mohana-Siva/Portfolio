@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function Navbar({ sections }) {
   const navbarRef = useRef(null);
@@ -160,7 +160,7 @@ export default function Navbar({ sections }) {
 
         <div className="d-flex justify-content-end order-2" style={{ flex: 1 }}>
           <a
-            href="https://drive.google.com/file/d/10kICZ3Jad20Zsm2Mhbh3jl7zH483qakx/view?usp=drivesdk"
+            href="https://drive.google.com/file/d/1MB17GS5ROS8yxqe6AT9EWKLr5wQN0Avn/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-resume-btn"
